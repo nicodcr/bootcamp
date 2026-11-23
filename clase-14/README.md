@@ -1,17 +1,15 @@
-# Semana 7 · Clase 14 · Restaurar Northwind
+# Clase 14 - Restaurar Northwind
 
-Base `northwind` restaurada en el Postgres de Docker (contenedor `my_postgres_bootcamp`).
+Cargue northwind.sql en el postgres de docker:
 
-## Comandos (PowerShell, desde la carpeta `datasets`)
-
-```powershell
+```
 docker exec my_postgres_bootcamp createdb -U myuser northwind
 docker cp .\northwind.sql my_postgres_bootcamp:/tmp/northwind.sql
 docker exec my_postgres_bootcamp psql -U myuser -d northwind -q -f /tmp/northwind.sql
 docker exec my_postgres_bootcamp psql -U myuser -d northwind -c "\dt"
 ```
 
-## Salida de `\dt`
+\dt:
 
 ```
                 List of relations
@@ -34,16 +32,7 @@ docker exec my_postgres_bootcamp psql -U myuser -d northwind -c "\dt"
 (14 rows)
 ```
 
-## Consulta de verificación
-
-```sql
-SELECT
-    (SELECT COUNT(*) FROM customers)     AS customers,
-    (SELECT COUNT(*) FROM orders)        AS orders,
-    (SELECT COUNT(*) FROM order_details) AS order_details,
-    (SELECT COUNT(*) FROM products)      AS products,
-    (SELECT COUNT(*) FROM employees)     AS employees;
-```
+Verificacion:
 
 ```
  customers | orders | order_details | products | employees
@@ -51,5 +40,3 @@ SELECT
         91 |    830 |          2155 |       77 |         9
 (1 row)
 ```
-
-Coincide con el resultado esperado.
